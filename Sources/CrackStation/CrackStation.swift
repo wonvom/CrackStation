@@ -2,11 +2,11 @@ import Foundation
 import CryptoKit
 
 
-public struct CrackStation: Decrypter{
+public class CrackStation: Decrypter{
     
     
     
-    public init() {
+    public required init() {
         
     }
     
