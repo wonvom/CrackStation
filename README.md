@@ -12,7 +12,7 @@ If you want to use this API then follow the description.
 
 	dependencies: [
         	// Dependencies declare other packages that this package depends on.
-        	.package(url: "git@github.com:ethan9438/CrackStation.git", from: "1.0.4")
+        	.package(url: "git@github.com:ethan9438/CrackStation.git", from: "1.0.5")
     	]
 
 2. Go to the File->Packages->Reset package caches
