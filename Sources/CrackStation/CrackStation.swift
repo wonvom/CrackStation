@@ -1,103 +1,80 @@
 import Foundation
 import CryptoKit
 
+public struct CrackStation: Decrypter {
+    
+    // Anyone can read lookupTables publicly.
+    // However, I can only set in via changing value, cannot be set from the outside.
+    public private(set) var lookupTable1 = [String: String]()
+    public private(set) var lookupTable2 = [String: String]()
 
-public protocol Decrypter {
-    init()
-
-    /// Either returns the cracked plain-text password
-    /// or, if unable to crack, then returns nil.
-    /// - Parameter shaHash: The SHA-1 or SHA-256 digest that corresponds to the encrypted password.
-    /// - Returns: The underlying plain-text password if `shaHash` was successfully cracked. Otherwise returns nil.
-    func decrypt(shaHash: String) -> String?
-}
-
-public class CrackStation: Decrypter{
-    
-    public required init() {
-        
-    }
-    
-    let Char = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z",
-                "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y" ,"Z",
-                "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0"]
-    
-    private func encryptDictionary(_ password: String) -> String {
-        let dataToHash = Data(password.utf8)
-        let prefix = "SHA 1 digest: "
-        let shaHashDescription = String(Insecure.SHA1.hash(data: dataToHash).description)
-        let shaHash = String(shaHashDescription.dropFirst(prefix.count - 1))
-        return shaHash
-    
-    }
-    
-    public func decrypt(shaHash: String) -> String?{
-        var dict: [String: String] = [:]
-        for i in Char {
-            dict[encryptDictionary(i)] = i
-            
-            for j in Char {
-                let new_str = i+j
-                dict[encryptDictionary(new_str)] = new_str
-                
+    // initialize
+    public init() {
+        if(lookupTable1==[:]) { // if lookupTable1 has dictionary type
+            do {
+                lookupTable1 = try loadDictionaryFromDisk(from: "data1") // load data from data1 file
+            }
+            catch {
             }
         }
-        print(dict)
-        let n = dict[shaHash]
-        return n
+        if(lookupTable2==[:]) { // if lookupTable1 has dictionary type
+            do {
+                lookupTable2 = try loadDictionaryFromDisk(from: "data2") // load data from data2 file
+            }
+            catch {
+            }
+        }
+    }
+
+    // Decryption function
+    public func decrypt(shaHash: String) -> String? {
+        return CheckTable(from:shaHash) // If the hashcode get in to the decrypt function, then check the table.
     }
     
-//    public func decrypt(shaHash: String) -> String? {
-//        // ??
-//        let lookupTable = (try? CrackStation.loadDictionaryFromDisk()) ?? [:]
-//        let answer = lookupTable["84a516841ba77a5b4648de2cd0dfcb30ea46dbb4"]
-//        return answer
-//    }
-//
-//    static func loadDictionaryFromDisk() throws -> [String : String] {
-//
-//        guard let path = Bundle.module.url(forResource: "data", withExtension: "json") else { return [:] }
-//
-//        let data = try Data(contentsOf: path)
-//        let jsonResult = try JSONSerialization.jsonObject(with: data)
-//
-//        if let lookupTable: Dictionary = jsonResult as? Dictionary<String, String> {
-//            return lookupTable
-//        } else {
-//            return [:]
-//        }
-//    }
+    // Crack Function
+    public func crack(_ _string: String) -> String? {
+        return CheckTable(from:_string) // If the string get in to the crack function, then check the table.
+    }
     
-//    struct CrackStation: Decrypter {
-//        init() {
-//            // TODO: Implement
-//        }
-//
-//        func decrypt(shaHash: String) -> String? {
-//            // TODO: Implement
-//
-//        }
-//    }
+    // CheckTable Function
+    func CheckTable(from input: String) -> String? {
+        if(lookupTable1[input]?.count==nil) {
+            if(lookupTable2[input]?.count==nil) {
+                return nil
+            }
+            else {
+                return lookupTable2[input]!
+            }
+        }
+        return lookupTable1[input]!
+    }
+    
+    // Encrypt Function with SHA1
+    func encryptUsingSha1(from input: String) -> String {
+        let inputData = Data(input.utf8)
+        let output = Insecure.SHA1.hash(data: inputData)
+        return output.description
+    }
+    
+    // Encrypt FUnction with SHA256
+    func encryptUsingSha256(from input: String) -> String {
+        let inputData = Data(input.utf8)
+        let output = SHA256.hash(data: inputData)
+        return output.description.replacingOccurrences(of: "SHA256 digest: ", with: "")
+    }
+    
+    // load data json files Function
+    func loadDictionaryFromDisk(from tableName: String) throws -> [String : String] {
+        guard let path = Bundle.module.url(forResource: tableName, withExtension: "json") else { return [:] }
+        let data = try Data(contentsOf: path)
+        let jsonResult = try JSONSerialization.jsonObject(with: data)
+        if let lookupTable: Dictionary = jsonResult as? Dictionary<String, String> {
+            return lookupTable
+        } else {
+            print("error:")
+            return [:]
+        }
+    }
 }
 
 
-
-
-
-//struct MockCrackStation: Decrypter {
-//    init() {}
-//
-//    func decrypt(shaHash: String) -> String? {
-//        return nil
-//    }
-//}
-//
-//struct CrackStation: Decrypter {
-//    init() {
-//        // TODO: Implement
-//    }
-//
-//    func decrypt(shaHash: String) -> String? {
-//        // TODO: Implement
-//    }
-//}

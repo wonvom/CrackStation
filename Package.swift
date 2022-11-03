@@ -6,7 +6,6 @@ import PackageDescription
 let package = Package(
     name: "CrackStation",
     platforms: [
-        .iOS(.v12),
         .macOS(.v10_15)
     ],
     products: [
@@ -26,7 +25,7 @@ let package = Package(
             name: "CrackStation",
             dependencies: [],
             resources: [
-                .process("data.json")
+                .process("data1.json"), .process("data2.json")
             ]
         ),
         .testTarget(

@@ -4,64 +4,76 @@ import CryptoKit
 
 final class CrackStationTests: XCTestCase {
     
-
-//    func testLoadingLookupTableFromDisk() throws {
-//        // When
-//        let lookupTable = try CrackStation.loadDictionaryFromDisk()
-//        let answer = lookupTable["84a516841ba77a5b4648de2cd0dfcb30ea46dbb4"]
-//
-//        // Then
-//        XCTAssertEqual(answer, "c")
-//    }
-    
-//    func testDecrypt_c() {
-//        // Given
-//        let crackstation = CrackStation()
-//
-//        // When
-//        let answer = crackstation.decrypt(shaHash: "84a516841ba77a5b4648de2cd0dfcb30ea46dbb4")
-//
-//        // Then
-//        XCTAssertEqual(answer, "c")
-//    }
-
-    func testExample() throws {
-        let crackStation = CrackStation()
+    // SHA256 Test
+    func testTheSHA256() {
         
-        let password = crackStation.decrypt(shaHash: "86f7e437faa5a7fce15d1ddcb9eaeaea377667b8")
+        // Given
+        let myTestStation = CrackStation()
+        let pwdSha256 =  myTestStation.crack("aff024fe4ab0fece4091de044c58c9ae4233383a")
         
-        XCTAssertEqual(password, "a")
+        // When
+        let password  = "w"
+        
+        // Then
+        XCTAssertEqual(pwdSha256, password)
+        XCTAssertNotNil(pwdSha256)
+        XCTAssert(pwdSha256 != "")
     }
     
-//    func testDecrypt_t() {
-//        // Given
-//        let crackstation = CrackStation()
-//
-//        // When
-//        let answer = crackstation.decrypt(shaHash: "8efd86fb78a56a5145ed7739dcb00c78581c5375")
-//
-//        // Then
-//        XCTAssertEqual(answer, "t")
-//    }
+    // Nil Test
+    func testNil() {
+        
+        // Given
+        let myTestStation = CrackStation()
+        let testNilValue =  myTestStation.decrypt(shaHash: "aff024fe4ab0fece4091de044c58c9ae4233383b")
+        
+        // When
+        
+        // Then
+        XCTAssert(testNilValue == nil)
+    }
     
-//    func testExample() throws {
-//        // Without the helper function:
-//
-//        let inputString = "7"
-//        let inputData = Data(inputString.utf8)
-//
-//        let output = Insecure.SHA1.hash(data: inputData)
-//        print(output)
-//
-//        // With the helper function:
-//
-//        func encryptUsingSha1(from input: String) -> String {
-//            let inputData = Data(input.utf8)
-//            let output = Insecure.SHA1.hash(data: inputData)
-//            return output.description
-//        }
-//
-//        let sha1 = encryptUsingSha1(from: "7")
-//        print(sha1)
-//    }
+    // Decrypt Test
+    func testDecrpt() {
+        
+        // Given
+        let myTestStation = CrackStation()
+        let testDecrptvalue =  myTestStation.decrypt(shaHash: "aff024fe4ab0fece4091de044c58c9ae4233383a")
+        
+        // When
+        let password  = "w"
+        
+        // Then
+        XCTAssertEqual(testDecrptvalue, password)
+        XCTAssert(testDecrptvalue != nil)
+    }
+    
+    // Test 2 parameters in Sha1
+    func testAllTwoLetterSha1Permutations() throws {
+        
+        let myTestStation = CrackStation()
+        
+        for a in "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789" {
+            for b in "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789" {
+                // Given
+                let password = String("\(a)\(b)")
+                let shaHash = encrypt(password)
+
+                // When
+                let crackedPassword = myTestStation.decrypt(shaHash: shaHash)
+
+                // Then
+                XCTAssertEqual(crackedPassword, password)
+            }
+        }
+    }
+    
+    // MARK: - Helpers
+    private func encrypt(_ password: String) -> String {
+        let dataToHash = Data(password.utf8)
+        let prefix = "SHA 1 digest: "
+        let shaHashDescription = String(Insecure.SHA1.hash(data: dataToHash).description)
+        let shaHash = String(shaHashDescription.dropFirst(prefix.count - 1))
+        return shaHash
+    }
 }
