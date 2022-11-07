@@ -36,15 +36,14 @@ public struct CrackStation: Decrypter {
     
     // CheckTable Function
     func CheckTable(from input: String) -> String? {
-        if(singleCharacterTable[input]?.count==nil) {
-            if(doubleCharacterTable[input]?.count==nil) {
-                return nil
-            }
-            else {
-                return doubleCharacterTable[input]!
-            }
+        let password1 = singleCharacterTable[input]
+        
+        if password1 != nil {
+            return password1
+        } else {
+            let password2 = doubleCharacterTable[input]
+            return password2
         }
-        return singleCharacterTable[input]!
     }
     
     // Encrypt Function with SHA1
