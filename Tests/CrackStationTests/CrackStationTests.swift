@@ -8,8 +8,8 @@ final class CrackStationTests: XCTestCase {
     func testTheSHA256() {
         
         // Given
-        let myTestStation = CrackStation()
-        let pwdSha256 =  myTestStation.crack("aff024fe4ab0fece4091de044c58c9ae4233383a")
+        let crackStation = CrackStation()
+        let pwdSha256 =  crackStation.crack("aff024fe4ab0fece4091de044c58c9ae4233383a")
         
         // When
         let password  = "w"
@@ -24,8 +24,8 @@ final class CrackStationTests: XCTestCase {
     func testNil() {
         
         // Given
-        let myTestStation = CrackStation()
-        let testNilValue =  myTestStation.decrypt(shaHash: "aff024fe4ab0fece4091de044c58c9ae4233383b")
+        let crackStation = CrackStation()
+        let testNilValue =  crackStation.decrypt(shaHash: "aff024fe4ab0fece4091de044c58c9ae4233383b")
         
         // When
         
@@ -37,8 +37,8 @@ final class CrackStationTests: XCTestCase {
     func testDecrpt() {
         
         // Given
-        let myTestStation = CrackStation()
-        let testDecrptvalue =  myTestStation.decrypt(shaHash: "aff024fe4ab0fece4091de044c58c9ae4233383a")
+        let crackStation = CrackStation()
+        let testDecrptvalue =  crackStation.decrypt(shaHash: "aff024fe4ab0fece4091de044c58c9ae4233383a")
         
         // When
         let password  = "w"
@@ -51,7 +51,7 @@ final class CrackStationTests: XCTestCase {
     // Test 2 parameters in Sha1
     func testAllTwoLetterSha1Permutations() throws {
         
-        let myTestStation = CrackStation()
+        let crackStation = CrackStation()
         
         for a in "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789" {
             for b in "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789" {
@@ -60,7 +60,7 @@ final class CrackStationTests: XCTestCase {
                 let shaHash = encrypt(password)
 
                 // When
-                let crackedPassword = myTestStation.decrypt(shaHash: shaHash)
+                let crackedPassword = crackStation.decrypt(shaHash: shaHash)
 
                 // Then
                 XCTAssertEqual(crackedPassword, password)
