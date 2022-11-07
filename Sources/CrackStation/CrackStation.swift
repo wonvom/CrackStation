@@ -3,23 +3,21 @@ import CryptoKit
 
 public struct CrackStation: Decrypter {
     
-    // Anyone can read lookupTables publicly.
-    // However, I can only set in via changing value, cannot be set from the outside.
-    public private(set) var lookupTable1 = [String: String]()
-    public private(set) var lookupTable2 = [String: String]()
+    public private(set) var singleCharacterTable = [String: String]()
+    public private(set) var doubleCharacterTable = [String: String]()
 
     // initialize
     public init() {
-        if(lookupTable1==[:]) { // if lookupTable1 has dictionary type
+        if(singleCharacterTable==[:]) { // if lookupTable1 has dictionary type
             do {
-                lookupTable1 = try loadDictionaryFromDisk(from: "data1") // load data from data1 file
+                singleCharacterTable = try loadDictionaryFromDisk(from: "data1") // load data from data1 file
             }
             catch {
             }
         }
-        if(lookupTable2==[:]) { // if lookupTable1 has dictionary type
+        if(doubleCharacterTable==[:]) { // if lookupTable1 has dictionary type
             do {
-                lookupTable2 = try loadDictionaryFromDisk(from: "data2") // load data from data2 file
+                doubleCharacterTable = try loadDictionaryFromDisk(from: "data2") // load data from data2 file
             }
             catch {
             }
@@ -38,15 +36,15 @@ public struct CrackStation: Decrypter {
     
     // CheckTable Function
     func CheckTable(from input: String) -> String? {
-        if(lookupTable1[input]?.count==nil) {
-            if(lookupTable2[input]?.count==nil) {
+        if(singleCharacterTable[input]?.count==nil) {
+            if(doubleCharacterTable[input]?.count==nil) {
                 return nil
             }
             else {
-                return lookupTable2[input]!
+                return doubleCharacterTable[input]!
             }
         }
-        return lookupTable1[input]!
+        return singleCharacterTable[input]!
     }
     
     // Encrypt Function with SHA1
