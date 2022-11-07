@@ -8,20 +8,8 @@ public struct CrackStation: Decrypter {
 
     // initialize
     public init() {
-        if(singleCharacterTable==[:]) { // if lookupTable1 has dictionary type
-            do {
-                singleCharacterTable = try loadDictionaryFromDisk(from: "data1") // load data from data1 file
-            }
-            catch {
-            }
-        }
-        if(doubleCharacterTable==[:]) { // if lookupTable1 has dictionary type
-            do {
-                doubleCharacterTable = try loadDictionaryFromDisk(from: "data2") // load data from data2 file
-            }
-            catch {
-            }
-        }
+        singleCharacterTable = (try? self.loadDictionaryFromDisk(from: "data1")) ?? [:]
+        doubleCharacterTable = (try? self.loadDictionaryFromDisk(from: "data2")) ?? [:]
     }
 
     // Decryption function
