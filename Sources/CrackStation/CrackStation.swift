@@ -53,12 +53,6 @@ public struct CrackStation: Decrypter {
         return output.description
     }
     
-    // Encrypt FUnction with SHA256
-    func encryptUsingSha256(from input: String) -> String {
-        let inputData = Data(input.utf8)
-        let output = SHA256.hash(data: inputData)
-        return output.description.replacingOccurrences(of: "SHA256 digest: ", with: "")
-    }
     
     // load data json files Function
     func loadDictionaryFromDisk(from tableName: String) throws -> [String : String] {
