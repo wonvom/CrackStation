@@ -17,16 +17,17 @@
             // Dependencies declare other packages that this package depends on.
             .package(url: "git@github.com:ethan9438/CrackStation.git", from: "2.0.0")
     ]
-            
-'''
+'''            
+
  2. Go to the File->Packages->Reset package caches
 
  3. You have to make object like this
+
 '''
 
-	testObject = CrackStation()
-    
+	testObject = CrackStation()    
 '''
+
  4. Done.
 
 ## API
