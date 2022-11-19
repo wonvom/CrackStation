@@ -3,39 +3,22 @@ import CryptoKit
 
 public struct CrackStation: Decrypter {
     
-//    private var singleCharacterTable = [String: String]()
-//    private var doubleCharacterTable = [String: String]()
-    private var threeCharacterTable = [String: String]()
+    private var characterTable = [String: String]()
     
     // initialize
     public init() {
-//        singleCharacterTable = (try? self.loadDictionaryFromDisk(from: "data1")) ?? [:]
-//        doubleCharacterTable = (try? self.loadDictionaryFromDisk(from: "data2")) ?? [:]
-        threeCharacterTable = (try? self.loadDictionaryFromDisk(from: "data3")) ?? [:]
+        characterTable = (try? self.loadDictionaryFromDisk(from: "data")) ?? [:]
         
     }
     
     // Decryption function
     public func decrypt(shaHash: String) -> String? {
-        return CheckTable(from:shaHash) // If the hashcode get in to the decrypt function, then check the table.
+        return CheckTable(from:shaHash)
     }
-    
-    // Crack Function
-    //    public func crack(_ _string: String) -> String? {
-    //        return CheckTable(from:_string) // If the string get in to the crack function, then check the table.
-    //    }
     
     // CheckTable Function
     private func CheckTable(from input: String) -> String? {
-        //        let password1 = singleCharacterTable[input]
-        //
-        //        if password1 != nil {
-        //            return password1
-        //        } else {
-        //            let password2 = doubleCharacterTable[input]
-        //            return password2
-        //        }
-        let password = threeCharacterTable[input]
+        let password = characterTable[input]
         
         if password != nil {
             return password
@@ -43,13 +26,6 @@ public struct CrackStation: Decrypter {
         
         return nil
     }
-    
-    // Encrypt Function with SHA1
-    //    private func encryptUsingSha1(from input: String) -> String {
-    //        let inputData = Data(input.utf8)
-    //        let output = Insecure.SHA1.hash(data: inputData)
-    //        return output.description
-    //    }
     
     
     // load data json files Function

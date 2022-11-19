@@ -25,7 +25,7 @@ let package = Package(
             name: "CrackStation",
             dependencies: [],
             resources: [
-                .process("data1.json"), .process("data2.json"), .process("data3.json")
+                .process("data.json")
             ]
         ),
         .testTarget(

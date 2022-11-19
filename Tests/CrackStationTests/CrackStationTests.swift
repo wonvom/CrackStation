@@ -30,6 +30,7 @@ final class CrackStationTests: XCTestCase {
         
         for firstLetter in "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789" {
             for secondLetter in "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789" {
+                
                 // Given
                 let password = String("\(firstLetter)\(secondLetter)")
                 let shaHash = encrypt(password)
@@ -49,12 +50,10 @@ final class CrackStationTests: XCTestCase {
         
         for firstLetter in "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789" {
             for secondLetter in "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789" {
-                //                let letterOf2 = String(firstLetter) + String(secondLetter)
                 for thirdLetter in "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789" {
-                    //                    let letterOf3 = letterOf2 + String(thirdLetter)
+                    
                     // Given
                     let password = String("\(firstLetter)\(secondLetter)\(thirdLetter)")
-                    
                     let shaHash = encrypt(password)
                     
                     // When
