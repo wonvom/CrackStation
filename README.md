@@ -1,6 +1,8 @@
 # **CrackStation**
-## **This package can decrypt your encrypted code.**
+## **Decrypt Your Encrypted Code!**
 
+## Overview
+ This package can decrypt your encrypted code.
 
 ## Mission Statement
  If you want to decrypt an encrypted hashcode into a plaintext password, this API will help.
@@ -15,7 +17,7 @@
 
     dependencies: [
             // Dependencies declare other packages that this package depends on.
-            .package(url: "git@github.com:ethan9438/CrackStation.git", from: "2.0.0")
+            .package(url: "git@github.com:ethan9438/CrackStation.git", from: "2.0.5")
     ]
 '''            
 
