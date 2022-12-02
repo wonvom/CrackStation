@@ -21,7 +21,7 @@ Thirdly, it is not directly visible how this API works, which can confuse hacker
 {
 	dependencies: [
         	// Dependencies declare other packages that this package depends on.
-        	.package(url: "git@github.com:ethan9438/CrackStation.git", from: "2.0.0")
+        	.package(url: "git@github.com:ethan9438/CrackStation.git", from: "2.0.7")
     	]
 }
 ```
