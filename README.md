@@ -1,6 +1,8 @@
 # **CrackStation**
-## **This package can decrypt your encrypted code.**
+### **This package can decrypt your encrypted code.**
 
+## OverView
+It can be decrypted with a crack password made from hash code such as SAH1 and SHA256.
 
 ## Mission Statement
 First, this library is written in Swift. Therefore, it will be useful for those who want to learn Swift syntax.
