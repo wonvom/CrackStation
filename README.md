@@ -3,8 +3,11 @@
 
 
 ## Mission Statement
- If you want to decrypt an encrypted hashcode into a plaintext password, this API will help.
- You don't need to search the code manually.
+First, this library is written in Swift. Therefore, it will be useful for those who want to learn Swift syntax.
+
+Second, this library is simple decryption. Therefore, the purpose is to remind you to use strong passwords as simple passwords can easily be compromised.
+
+Thirdly, it is not directly visible how this API works, which can confuse hackers.
 
 ## Installation
  If you want to use this API then follow the description.
@@ -27,33 +30,33 @@
 
 ## API
 '''{
-public protocol Decrypter {
-    init()
+	public protocol Decrypter {
+    	init()
     
-    /// Either returns the cracked plain-text password
-    /// or, if unable to crack, then returns nil.
-    /// - Parameter shaHash: The SHA-1 or SHA-256 digest that corresponds to the encrypted password.
-    /// - Returns: The underlying plain-text password if `shaHash` was successfully cracked. Otherwise returns nil.
-    func decrypt(shaHash: String) -> String?
-}
+	    /// Either returns the cracked plain-text password
+	    /// or, if unable to crack, then returns nil.
+	    /// - Parameter shaHash: The SHA-1 or SHA-256 digest that corresponds to the encrypted password.
+	    /// - Returns: The underlying plain-text password if `shaHash` was successfully cracked. Otherwise returns nil.
+	    func decrypt(shaHash: String) -> String?
+	}
 }'''
 
 ## Example
 '''{
-import CrackStation
+	import CrackStation
 
-public struct CrackStationWrapper: Decrypter {
-    private let testObject: Decrypter
+	public struct CrackStationWrapper: Decrypter {
+	    private let testObject: Decrypter
 
-    public init() {
-        testObject = CrackStation()
-    }
+	    public init() {
+		testObject = CrackStation()
+	    }
 
-    public func decrypt(shaHash: String) -> String? {
-        let crackedPassword = testObject.decrypt(shaHash: shaHash)
-        return crackedPassword
-    }
-}
+	    public func decrypt(shaHash: String) -> String? {
+		let crackedPassword = testObject.decrypt(shaHash: shaHash)
+		return crackedPassword
+	    }
+	}
 }'''
 
 ## Author
