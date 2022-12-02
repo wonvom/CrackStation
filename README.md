@@ -14,22 +14,31 @@ Thirdly, it is not directly visible how this API works, which can confuse hacker
 
  1. You need to add this dependency in the Package file. (Check my version of tag)
 
-'''{
+
+```Swift
+{
 	dependencies: [
         	// Dependencies declare other packages that this package depends on.
         	.package(url: "git@github.com:ethan9438/CrackStation.git", from: "2.0.0")
     	]
-}'''
+}
+```
+
  2. Go to the File->Packages->Reset package caches
 
  3. You have to make object like this
-'''{
+
+```Swift
+{
 	testObject = CrackStation()
-}'''
+}
+```
+ 
  4. Done.
 
 ## API
-'''{
+```Swift
+{
 	public protocol Decrypter {
     	init()
     
@@ -39,10 +48,11 @@ Thirdly, it is not directly visible how this API works, which can confuse hacker
 	    /// - Returns: The underlying plain-text password if `shaHash` was successfully cracked. Otherwise returns nil.
 	    func decrypt(shaHash: String) -> String?
 	}
-}'''
-
+}
+```
 ## Example
-'''{
+```Swift
+{
 	import CrackStation
 
 	public struct CrackStationWrapper: Decrypter {
@@ -57,7 +67,8 @@ Thirdly, it is not directly visible how this API works, which can confuse hacker
 		return crackedPassword
 	    }
 	}
-}'''
+}
+```
 
 ## Author
 > NAME : Wonjong Kim (Ethan)
