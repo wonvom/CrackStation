@@ -4,6 +4,7 @@
 
 ## OverView
 It can be decrypted with a crack password made from hash code such as SAH1 and SHA256.
+(* However, salted password can't be decrypt)
 
 ## Mission Statement
 First, this library is written in Swift. Therefore, it will be useful for those who want to learn Swift syntax.
