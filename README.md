@@ -57,22 +57,17 @@ Thirdly, it is not directly visible how this API works, which can confuse hacker
 
 ## Example
 ```Swift
-{
-	import CrackStation
+import CrackStation
 
-	public struct CrackStationWrapper: Decrypter {
-	    private let testObject: Decrypter
-
-	    public init() {
-		testObject = CrackStation()
-	    }
-
-	    public func decrypt(shaHash: String) -> String? {
-		let crackedPassword = testObject.decrypt(shaHash: shaHash)
-		return crackedPassword
-	    }
-	}
-}
+	let crackStation = CrackStation()
+	// SHA256
+	let sha256Hash = "1cf01ce08eb6aa7f47e73a96ebab55233c09f55d4624122bf2aea97cc8478ec8" // "?b4"
+	let crackedPassword256 = crackStation.decrypt(shaHash: sha256Hash)
+	// SHA1
+	let sha1Hash = "aef75e93e8a0a0f0d17c1d3d16444fe72a1cb89d" // "9?Q"
+	let crackedPassword1 = crackStation.decrypt(shaHash: sha1Hash)
+	assert(crackedPassword256, "?b4")
+	assert(crackedPassword1, "9?Q")
 ```
 
 ## Author
